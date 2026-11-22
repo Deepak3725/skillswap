@@ -164,18 +164,59 @@ public class UserRepository {
                             rs.getString("telegram")
                     );
 
-                    // Load the user's teaching and learning skills
-                    loadUserSkills(user, connection);
-
                     users.add(user);
                 }
             }
+
+            // Load the teaching and learning skills of all users with one
+            // query (one query per user was slow on a remote database).
+            loadAllUserSkills(users, connection);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return users;
+    }
+
+    // Same as loadUserSkills(), for a whole list of users at once
+    private void loadAllUserSkills(java.util.List<User> users,
+                                   Connection connection)
+            throws SQLException {
+
+        java.util.Map<Integer, User> byId = new java.util.HashMap<>();
+
+        for (User user : users) {
+            byId.put(user.getUserId(), user);
+        }
+
+        String sql = "SELECT us.user_id, s.skill_name, us.skill_type "
+                + "FROM user_skills us "
+                + "JOIN skills s ON us.skill_id = s.skill_id";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+
+                User user = byId.get(rs.getInt("user_id"));
+
+                if (user == null) {
+                    continue;
+                }
+
+                String skillName = rs.getString("skill_name");
+                String skillType = rs.getString("skill_type");
+
+                if (skillType.equals("TEACH")) {
+                    user.addTeachSkills(skillName);
+                }
+
+                else if (skillType.equals("WANT")) {
+                    user.addWantSkills(skillName);
+                }
+            }
+        }
     }
 
     // Load user's teaching and learning skills from database

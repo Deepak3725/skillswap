@@ -101,6 +101,11 @@ public class Main {
                 new StaticFileHandler("views/html", "/", "index.html"));
 
 
+        // Handle several requests at the same time. Without an executor
+        // the HttpServer runs every request on one thread, so a page that
+        // calls several APIs waits for each database call in turn.
+        server.setExecutor(java.util.concurrent.Executors.newFixedThreadPool(10));
+
         // Start server
         server.start();
 

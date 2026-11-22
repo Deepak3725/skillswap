@@ -360,6 +360,12 @@ button.chip.chip-learn:hover { background: #e7dcfb; }
 .modal-title { font-size: 1.05rem; font-weight: 650; }
 .modal-body { padding: 1.25rem; }
 .modal-footer { border-top: 1px solid var(--ss-border); padding: .85rem 1.25rem; }
+/* A <form> that wraps header/body/footer (swap request modal) must pass
+   Bootstrap's scrollable layout through; otherwise the footer with the
+   "Send request" button is cut off on short screens. */
+.modal-content > form { display: flex; flex-direction: column; min-height: 0; max-height: 100%; }
+.modal-dialog-scrollable .modal-content > form { overflow: hidden; }
+.modal-dialog-scrollable .modal-content > form > .modal-body { overflow-y: auto; }
 .swap-preview { display: grid; grid-template-columns: 1fr auto 1fr; gap: .75rem; align-items: center; background: var(--ss-surface-2); border: 1px solid var(--ss-border); border-radius: 12px; padding: .9rem; }
 .swap-preview-side { text-align: center; min-width: 0; }
 .swap-preview-side .small-caps { display: block; margin-bottom: .3rem; }
