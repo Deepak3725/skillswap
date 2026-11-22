@@ -19,7 +19,7 @@ public class DBConnection {
             "DB_USER", "neondb_owner");
 
     private static final String PASSWORD = getSetting(
-            "DB_PASSWORD", "");
+            "DB_PASSWORD", "npg_wOY1o0pzIGeb");
 
     private static String getSetting(String name, String defaultValue) {
         String value = System.getenv(name);
