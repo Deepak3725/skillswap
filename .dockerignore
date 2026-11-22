@@ -1,0 +1,15 @@
+out/
+data/
+.vscode/
+.git/
+*.log
+.env
+.env.*
+!.env.example
+auth-files.txt
+sources.txt
+javac
+node_modules/
+.idea/
+*.iml
+.gitignore

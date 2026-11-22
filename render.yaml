@@ -1,0 +1,21 @@
+# Render Blueprint for SkillSwap (Docker web service + Neon PostgreSQL).
+# Render -> New -> Blueprint -> select this repository.
+# Values marked "sync: false" are entered in the Render dashboard and are
+# never stored in this file.
+services:
+  - type: web
+    name: skillswap
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /
+    envVars:
+      - key: DB_URL
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: TZ
+        value: Asia/Thimphu

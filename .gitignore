@@ -1,0 +1,32 @@
+# ---------- Compiled output ----------
+out/
+*.class
+sources.list
+
+# ---------- Secrets / environment ----------
+# Real database credentials live only in .env (local) or Render's settings.
+.env
+.env.*
+!.env.example
+
+# ---------- IDE / editor ----------
+.vscode/
+.idea/
+*.iml
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---------- Logs / temporary files ----------
+*.log
+*.tmp
+data/
+node_modules/
+
+# Local scratch files (not part of the application)
+auth-files.txt
+sources.txt
+/javac
+
+# NOTE: lib/*.jar is intentionally NOT ignored — the build needs
+# gson-2.15.0.jar and postgresql-42.7.14.jar.
